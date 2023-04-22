@@ -1,12 +1,15 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import SearchIcon from "../search.svg";
 
-export default function Navbar() {
+export default function NavbarComp(props) {
+  const [searchInput, setsearchInput] = useState("");
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            Navbar
+            MM
           </a>
           <button
             className="navbar-toggler"
@@ -28,9 +31,10 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
-                  Link
+                  Browse
                 </a>
               </li>
+
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -40,7 +44,7 @@ export default function Navbar() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  Dropdown Menu
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
@@ -64,26 +68,25 @@ export default function Navbar() {
                 </ul>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link disabled"
-                  href="#"
-                  tabIndex={-1}
-                  aria-disabled="true"
-                >
-                  Disabled
+                <a className="nav-link" href="#">
+                  Login/CreateUser
                 </a>
               </li>
             </ul>
             <form className="d-flex">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Search for Movies"
+                  value={searchInput}
+                  onChange={(e) => setsearchInput(e.target.value)}
+                />
+                <img
+                  src={SearchIcon}
+                  alt="search"
+                  onClick={() => props.searchMovies(searchInput)}
+                />
+              </div>
             </form>
           </div>
         </div>
