@@ -1,4 +1,5 @@
 import React from "react";
+
 export default function MovieCard({ movie, movieInfo }) {
   return (
     <div className="movie col-3" onClick={() => movieInfo(movie.imdbID)}>
