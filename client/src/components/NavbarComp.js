@@ -1,6 +1,8 @@
 import React from "react";
+
 import { useEffect, useState } from "react";
 import SearchIcon from "../search.svg";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default function NavbarComp(props) {
   const [searchInput, setsearchInput] = useState("");
@@ -25,12 +27,12 @@ export default function NavbarComp(props) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <a className="nav-link active" aria-current="page" href="/home">
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/">
                   Browse
                 </a>
               </li>
@@ -68,7 +70,7 @@ export default function NavbarComp(props) {
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/login">
                   Login/CreateUser
                 </a>
               </li>
@@ -93,4 +95,22 @@ export default function NavbarComp(props) {
       </nav>
     </>
   );
+}
+
+{
+  /* <form className="d-flex">
+<div>
+  <input
+    type="text"
+    placeholder="Search for Movies"
+    value={searchInput}
+    onChange={(e) => setsearchInput(e.target.value)}
+  />
+  <img
+    src={SearchIcon}
+    alt="search"
+    onClick={() => props.searchMovies(searchInput)}
+  />
+</div>
+</form> */
 }
