@@ -1,116 +1,110 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import SearchIcon from "../search.svg";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default function NavbarComp(props) {
   const [searchInput, setsearchInput] = useState("");
   return (
-    <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            MM
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/home">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  Browse
-                </a>
-              </li>
-
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown Menu
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/login">
-                  Login/CreateUser
-                </a>
-              </li>
-            </ul>
-            <form className="d-flex">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Search for Movies"
-                  value={searchInput}
-                  onChange={(e) => setsearchInput(e.target.value)}
-                />
-                <img
-                  src={SearchIcon}
-                  alt="search"
-                  onClick={() => props.searchMovies(searchInput)}
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-      </nav>
-    </>
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+      className="p-3"
+    >
+      <Container>
+        <Navbar.Brand>MOVIE MANIACS</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link>
+              {" "}
+              <Link className="text-decoration-none text-white" to="/">
+                Home
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link className="text-decoration-none text-white" to="/login">
+                Login
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link className="text-decoration-none text-white" to="/contact">
+                Contact Us
+              </Link>
+            </Nav.Link>
+          </Nav>
+          <Nav className="gap-2">
+            <Nav.Link>
+              <Link className="btn btn-primary text-black" to="/login">
+                Login
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link className="btn btn-light text-black" to="/login">
+                Sign up
+              </Link>
+            </Nav.Link>
+          </Nav>
+          <Form className="d-flex">
+            <Form.Control
+              type="search"
+              className="me-2"
+              aria-label="Search"
+              placeholder="Search for Movies"
+              value={searchInput}
+              onChange={(e) => setsearchInput(e.target.value)}
+            />
+            <Button
+              variant="outline-success"
+              onClick={() => props.searchMovies(searchInput)}
+            >
+              Search
+            </Button>
+          </Form>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-{
-  /* <form className="d-flex">
-<div>
-  <input
-    type="text"
-    placeholder="Search for Movies"
-    value={searchInput}
-    onChange={(e) => setsearchInput(e.target.value)}
-  />
-  <img
-    src={SearchIcon}
-    alt="search"
-    onClick={() => props.searchMovies(searchInput)}
-  />
-</div>
-</form> */
-}
+// <div>
+// <Navbar className="faded-Dark nav">
+//   <Container className="retro-text align-content">
+//     <Nav className="gradient-text me-auto">
+//       <Nav.Link as={Link} to={"/"}>
+//         <h1 className=""> HOME </h1>
+//       </Nav.Link>
+//       <Nav.Link as={Link} to={"/"}>
+//         <h1 className="">BROWSE</h1>
+//       </Nav.Link>
+//       <Nav.Link as={Link} to={"/login"}>
+//         <h1 className="">LOGIN</h1>
+//       </Nav.Link>
+//     </Nav>
+//     <form className="d-flex">
+//       <div>
+//         <input
+//           type="text"
+//           placeholder="Search for Movies"
+//           value={searchInput}
+//           onChange={(e) => setsearchInput(e.target.value)}
+//         />
+//         <img
+//           src={SearchIcon}
+//           alt="search"
+//           onClick={() => props.searchMovies(searchInput)}
+//         />
+//       </div>
+//     </form>
+//   </Container>
+// </Navbar>
+// </div>
