@@ -1,7 +1,7 @@
 import React from "react";
-import MovieCard from "./MovieCard";
-import NavbarComp from "./NavbarComp";
-export default function MovieSearch({ movies, movieInfo }) {
+import MovieCard from "../components/MovieCard";
+import NavbarComp from "../components/NavbarComp";
+export default function SearchResults({ movies, movieInfo }) {
   return (
     <>
       <div className="container">

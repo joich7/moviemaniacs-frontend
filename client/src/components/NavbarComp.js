@@ -7,9 +7,20 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import SearchIcon from "../search.svg";
-
+import { useGlobalState } from "../context/GlobalState";
+import AuthService from "../services/auth.service";
 export default function NavbarComp(props) {
+  const [state, dispatch] = useGlobalState();
+  let loggedIn = state.currentUser != null ? true : false;
   const [searchInput, setsearchInput] = useState("");
+  function logout() {
+    AuthService.logout();
+    props.goHome();
+    dispatch({
+      currentUserToken: null,
+      currentUser: null,
+    });
+  }
   return (
     <Navbar
       collapseOnSelect
@@ -42,17 +53,40 @@ export default function NavbarComp(props) {
               </Link>
             </Nav.Link>
           </Nav>
+
           <Nav className="gap-2">
-            <Nav.Link>
-              <Link className="btn btn-primary text-black" to="/login">
-                Login
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link className="btn btn-light text-black" to="/login">
-                Sign up
-              </Link>
-            </Nav.Link>
+            {loggedIn ? (
+              <>
+                {" "}
+                <Button className="btn" onClick={logout}>
+                  Log out
+                </Button>
+              </>
+            ) : (
+              <>
+                {" "}
+                <Nav.Link>
+                  <Link className="btn btn-primary text-black" to="/login">
+                    Login
+                  </Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link className="btn btn-light text-black" to="/register">
+                    Sign up
+                  </Link>
+                </Nav.Link>
+              </>
+            )}
+
+            <Button
+              className="btn"
+              onClick={() => {
+                console.log(loggedIn);
+                console.log(state);
+              }}
+            >
+              Status
+            </Button>
           </Nav>
           <Form className="d-flex">
             <Form.Control

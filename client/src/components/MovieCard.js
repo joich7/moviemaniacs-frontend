@@ -3,7 +3,7 @@ import React from "react";
 export default function MovieCard({ movie, movieInfo }) {
   const Poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
   return (
-    <div className="movie col-3" onClick={() => movieInfo(movie.imdbID)}>
+    <div className="movie col-3" onClick={() => movieInfo(movie.id)}>
       <div>
         <p>{movie.release_date}</p>
       </div>
