@@ -61,9 +61,16 @@ export default function NavbarComp(props) {
             {loggedIn ? (
               <>
                 {" "}
-                <Button className="btn" onClick={logout}>
-                  Log out
-                </Button>
+                <Nav.Link>
+                  <Link className="btn btn-primary text-black" onClick={logout}>
+                    Logout
+                  </Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link className="btn btn-light text-black" to="/profile">
+                    Profile
+                  </Link>
+                </Nav.Link>
               </>
             ) : (
               <>
@@ -95,16 +102,6 @@ export default function NavbarComp(props) {
               onClick={() => props.searchMovies(searchInput)}
             >
               Search
-            </Button>
-            <Button
-              className="btn"
-              onClick={() => {
-                console.log("loggedIn?" + loggedIn);
-                console.log("state:");
-                console.log(state);
-              }}
-            >
-              Profile data
             </Button>
           </Form>
         </Navbar.Collapse>

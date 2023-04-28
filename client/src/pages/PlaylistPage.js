@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import request from "../services/api.request";
 
 export default function ProfilePage() {
   const [movies, setMovies] = useState([]);

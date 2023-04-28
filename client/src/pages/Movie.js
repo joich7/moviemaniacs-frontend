@@ -2,6 +2,7 @@ import React from "react";
 import { useGlobalState } from "../context/GlobalState";
 import request from "../services/api.request";
 import { useEffect, useState } from "react";
+import Button from "react-bootstrap/esm/Button";
 
 export default function Movie({ selectedMovie }) {
   const [state, dispatch] = useGlobalState();
@@ -10,12 +11,11 @@ export default function Movie({ selectedMovie }) {
   const poster = imgPath + selectedMovie.poster_path;
   const backdrop = imgPath + selectedMovie.backdrop_path;
 
-  const [favoritesID, setFavoritesID] = useState(null);
-  const [watchlistID, setWatchlistID] = useState("");
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
     async function getPlaylists() {
+      //get playlists so I can use Id's
       let options = {
         url: `playlists/`, // just the endpoint
         method: "GET", // sets the method
@@ -26,27 +26,38 @@ export default function Movie({ selectedMovie }) {
     getPlaylists();
   }, []);
 
-  function getWatchlistID() {
-    let wlID = 0;
+  async function postMovie(playlistID) {
+    let options = {
+      url: `movies/`, // just the endpoint
+      method: "POST", // sets the method
+      data: {
+        playlist: playlistID,
+        movie_id: selectedMovie.id,
+        movie_name: selectedMovie.original_title,
+      },
+    };
+    let resp = await request(options); // await the response and pass in this fancy object of request options
+    console.log(resp.data); // set the response
+  }
+
+  function addtoWatchlist() {
+    let watchlistID = 0;
     for (let i of playlists) {
       if (i.list_type === "w") {
-        wlID = i.id;
+        watchlistID = i.id;
       }
     }
-    async function addtoWatchlist() {
-      let options = {
-        url: `movies/`, // just the endpoint
-        method: "POST", // sets the method
-        data: {
-          playlist: 3,
-          movie_id: selectedMovie.id,
-          movie_name: selectedMovie.original_title,
-        },
-      };
-      let resp = await request(options); // await the response and pass in this fancy object of request options
-      console.log(resp.data); // set the response
+    postMovie(watchlistID);
+  }
+
+  function addtoFavoriteslist() {
+    let favlistID = 0;
+    for (let i of playlists) {
+      if (i.list_type === "f") {
+        favlistID = i.id;
+      }
     }
-    addtoWatchlist();
+    postMovie(favlistID);
   }
 
   return (
@@ -55,6 +66,7 @@ export default function Movie({ selectedMovie }) {
         backgroundImage: `url(${backdrop}); height:100vp`,
       }}
     >
+      <div className="p-3 m-3"></div>
       <div className="container ">
         <div className="row">
           <div className="col">
@@ -76,10 +88,8 @@ export default function Movie({ selectedMovie }) {
               <p>RATING</p>
               <h2>{selectedMovie.vote_average}/10</h2>
             </div>
-            <button>Add to List</button>
-            <button onClick={() => console.log(getWatchlistID())}>
-              +Watchlist
-            </button>
+            <Button onClick={() => addtoFavoriteslist()}>+Favorites</Button>
+            <Button onClick={() => addtoWatchlist()}>+Watchlist</Button>
           </div>
         </div>
         <div className="row ">

@@ -9,9 +9,10 @@ import Register from "./pages/user/Register";
 import Homepage from "./pages/Homepage";
 import SearchResults from "./pages/SearchResults";
 import Profile from "./pages/user/Profile";
-
+import AllFavorites from "./pages/AllFavorites";
 
 import PlaylistPage from "./pages/PlaylistPage";
+import EditPlaylist from "./pages/EditPlaylist";
 //const API_URL2 = "https://www.omdbapi.com/?apikey=785850a5";
 //const API_URL =
 //  "https://8000-joich7-moviemaniacs-lewahc4c4bx.ws-us95.gitpod.io/sendjson/";
@@ -21,8 +22,6 @@ const API_URL =
 function App() {
   const [movies, setmovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState("");
- 
-
 
   const navigate = useNavigate();
 
@@ -42,7 +41,6 @@ function App() {
     navigate("/playlistPage");
   };
 
-  
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&query=${title}&language=en-US`);
     const data = await response.json();
@@ -76,8 +74,10 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login login={navigateToLogin} />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/playlistPage" element={<PlaylistPage  />} />
+        <Route path="/profile" element={<Profile movieInfo={movieInfo} />} />
+        <Route path="/playlistPage" element={<PlaylistPage />} />
+        <Route path="/allFavorites" element={<AllFavorites />} />
+        <Route path="/editPlaylist" element={<EditPlaylist />} />
       </Routes>
     </>
   );

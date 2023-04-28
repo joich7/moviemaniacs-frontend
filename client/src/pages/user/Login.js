@@ -26,31 +26,46 @@ const Login = () => {
   };
 
   return (
-    <div className="c-form text-white">
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="pass">Password</label>
-          <input
-            type="password"
-            id="pass"
-            name="password"
-            minLength="8"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <input type="submit" value="Sign in" />
-      </form>
+    <div className="row">
+    <div className="col-4">
+      <div className="Auth-form-container">
+        <form className="Auth-form" onSubmit={handleLogin}>
+          <div className="Auth-form-content">
+            <h3 className="Auth-form-title">Sign In</h3>
+            <div className="text-center">
+              Not registered yet? <span className="link-primary">Sign Up</span>
+            </div>
+            <div className="form-group mt-3">
+              <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label htmlFor="pass">Password</label>
+              <input
+                type="password"
+                id="pass"
+                name="password"
+                minLength="8"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="d-grid gap-2 mt-3">
+              <button type="submit" value="Sign in" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
+            
+          </div>
+        </form>
+      </div>
+      </div>
     </div>
   );
 };
