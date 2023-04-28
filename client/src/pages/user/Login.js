@@ -8,7 +8,6 @@ const Login = () => {
   let navigate = useNavigate();
 
   const [state, dispatch] = useGlobalState();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,7 +26,7 @@ const Login = () => {
   };
 
   return (
-    <div className="c-form">
+    <div className="c-form text-white">
       <form onSubmit={handleLogin}>
         <div>
           <label htmlFor="username">Username:</label>

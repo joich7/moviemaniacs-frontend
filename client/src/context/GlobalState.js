@@ -7,6 +7,8 @@ let user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
   currentUser: user ? jwtDecode(user.access) : null,
   currentUserToken: user ? user.access : null,
+  watchlistId: 0,
+  favoritesId: 0,
 };
 
 const GlobalStateContext = createContext(initialState);

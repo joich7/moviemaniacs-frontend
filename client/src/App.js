@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import NavbarComp from "./components/NavbarComp";
-// import "./App.css";
+import "./App.css";
 import Movie from "./pages/Movie";
 import { useNavigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/user/Login";
@@ -10,6 +10,8 @@ import Homepage from "./pages/Homepage";
 import SearchResults from "./pages/SearchResults";
 import Profile from "./pages/user/Profile";
 
+
+import PlaylistPage from "./pages/PlaylistPage";
 //const API_URL2 = "https://www.omdbapi.com/?apikey=785850a5";
 //const API_URL =
 //  "https://8000-joich7-moviemaniacs-lewahc4c4bx.ws-us95.gitpod.io/sendjson/";
@@ -19,6 +21,8 @@ const API_URL =
 function App() {
   const [movies, setmovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState("");
+ 
+
 
   const navigate = useNavigate();
 
@@ -34,7 +38,11 @@ function App() {
   const navigateToHome = () => {
     navigate("/");
   };
+  const navigateToPlaylistPage = () => {
+    navigate("/playlistPage");
+  };
 
+  
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&query=${title}&language=en-US`);
     const data = await response.json();
@@ -69,6 +77,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login login={navigateToLogin} />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/playlistPage" element={<PlaylistPage  />} />
       </Routes>
     </>
   );

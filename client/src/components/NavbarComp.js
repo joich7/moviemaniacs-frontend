@@ -19,8 +19,11 @@ export default function NavbarComp(props) {
     dispatch({
       currentUserToken: null,
       currentUser: null,
+      watchlistId: null,
+      favoritesId: null,
     });
   }
+
   return (
     <Navbar
       collapseOnSelect
@@ -77,16 +80,6 @@ export default function NavbarComp(props) {
                 </Nav.Link>
               </>
             )}
-
-            <Button
-              className="btn"
-              onClick={() => {
-                console.log(loggedIn);
-                console.log(state);
-              }}
-            >
-              Status
-            </Button>
           </Nav>
           <Form className="d-flex">
             <Form.Control
@@ -102,6 +95,16 @@ export default function NavbarComp(props) {
               onClick={() => props.searchMovies(searchInput)}
             >
               Search
+            </Button>
+            <Button
+              className="btn"
+              onClick={() => {
+                console.log("loggedIn?" + loggedIn);
+                console.log("state:");
+                console.log(state);
+              }}
+            >
+              Profile data
             </Button>
           </Form>
         </Navbar.Collapse>
