@@ -1,21 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Router } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
-import SearchIcon from "../search.svg";
 import { useGlobalState } from "../context/GlobalState";
 import AuthService from "../services/auth.service";
-export default function NavbarComp(props) {
+
+export default function NavbarComp({ searchMovies, navigateToHome }) {
   const [state, dispatch] = useGlobalState();
   let loggedIn = state.currentUser != null ? true : false;
   const [searchInput, setsearchInput] = useState("");
   function logout() {
+    navigateToHome();
     AuthService.logout();
-    props.goHome();
     dispatch({
       currentUserToken: null,
       currentUser: null,
@@ -62,9 +62,12 @@ export default function NavbarComp(props) {
               <>
                 {" "}
                 <Nav.Link>
-                  <Link className="btn btn-primary text-black" onClick={logout}>
+                  <div
+                    className="btn btn-primary text-black"
+                    onClick={() => logout()}
+                  >
                     Logout
-                  </Link>
+                  </div>
                 </Nav.Link>
                 <Nav.Link>
                   <Link className="btn btn-light text-black" to="/profile">
@@ -99,7 +102,7 @@ export default function NavbarComp(props) {
             />
             <Button
               variant="outline-success"
-              onClick={() => props.searchMovies(searchInput)}
+              onClick={() => searchMovies(searchInput)}
             >
               Search
             </Button>

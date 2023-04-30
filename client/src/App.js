@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import NavbarComp from "./components/NavbarComp";
-import "./App.css";
+//import "./App.css";
 import Movie from "./pages/Movie";
 import { useNavigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/user/Login";
@@ -10,7 +10,7 @@ import Homepage from "./pages/Homepage";
 import SearchResults from "./pages/SearchResults";
 import Profile from "./pages/user/Profile";
 import AllFavorites from "./pages/AllFavorites";
-
+import { Navigate } from "react-router-dom";
 import PlaylistPage from "./pages/PlaylistPage";
 import EditPlaylist from "./pages/EditPlaylist";
 //const API_URL2 = "https://www.omdbapi.com/?apikey=785850a5";
@@ -35,7 +35,7 @@ function App() {
     navigate("/login");
   };
   const navigateToHome = () => {
-    navigate("/");
+    navigate("/home");
   };
   const navigateToPlaylistPage = () => {
     navigate("/playlistPage");
@@ -60,10 +60,14 @@ function App() {
 
   return (
     <>
-      <NavbarComp searchMovies={searchMovies} goHome={navigateToHome} />
+      <NavbarComp searchMovies={searchMovies} navigateToHome={navigateToHome} />
 
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route
+          path="/home"
+          element={<Homepage movies={movies} movieInfo={movieInfo} />}
+        />
         <Route
           path="/movieSearch"
           element={<SearchResults movies={movies} movieInfo={movieInfo} />}

@@ -1,13 +1,20 @@
 import React from "react";
 
 export default function MovieCard({ movie, movieInfo }) {
+  // if (!document.URL.includes("home")) {
+  //   alert("yeet");
+  // }
   const Poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
   return (
-    <div className="movie col-3" onClick={() => movieInfo(movie.id)}>
-      <div>
-        <p>{movie.release_date}</p>
-      </div>
-
+    <div
+      className={!document.URL.includes("home") ? "movie col-3" : null}
+      onClick={() => movieInfo(movie.id)}
+    >
+      {!document.URL.includes("home") ? (
+        <div>
+          <p>{movie.release_date}</p>
+        </div>
+      ) : null}
       <div>
         <img
           src={
@@ -18,11 +25,13 @@ export default function MovieCard({ movie, movieInfo }) {
           alt={movie.Title}
         />
       </div>
-      <div>
-        <span>{movie.Type}</span>
+      {!document.URL.includes("home") ? (
+        <div>
+          <span>{movie.Type}</span>
 
-        <h3>{movie.original_title}</h3>
-      </div>
+          <h3>{movie.original_title}</h3>
+        </div>
+      ) : null}
     </div>
   );
 }

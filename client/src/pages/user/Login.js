@@ -27,7 +27,7 @@ const Login = () => {
 
   return (
     <div className="row">
-    <div className="col-4">
+    <div className="col-4 mx-auto">
       <div className="Auth-form-container">
         <form className="Auth-form" onSubmit={handleLogin}>
           <div className="Auth-form-content">

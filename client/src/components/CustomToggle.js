@@ -8,10 +8,12 @@ export default function CustomToggle({ playlist, deleteMovie, movieInfo }) {
       <ol>
         {playlist.movies.map((movie) => (
           <>
-            <li className="text-dark" onClick={() => movieInfo(movie.movie_id)}>
-              <a>{movie.movie_name}</a>
+            <li className="text-dark">
+              <h3 onClick={() => movieInfo(movie.movie_id)}>
+                {movie.movie_name}
+              </h3>
+              <Button onClick={() => deleteMovie(movie.id)}></Button>
             </li>
-            <Button onClick={() => deleteMovie(movie.id)}></Button>
           </>
         ))}
       </ol>
