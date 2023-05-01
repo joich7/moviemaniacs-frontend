@@ -12,7 +12,7 @@ import Profile from "./pages/user/Profile";
 import AllFavorites from "./pages/AllFavorites";
 import { Navigate } from "react-router-dom";
 import PlaylistPage from "./pages/PlaylistPage";
-import EditPlaylist from "./pages/EditPlaylist";
+
 //const API_URL2 = "https://www.omdbapi.com/?apikey=785850a5";
 //const API_URL =
 //  "https://8000-joich7-moviemaniacs-lewahc4c4bx.ws-us95.gitpod.io/sendjson/";
@@ -41,21 +41,18 @@ function App() {
     navigate("/playlistPage");
   };
 
+  // useEffect(() => {
+  //   const data = localStorage.getItem("selectedMovie");
+  //   if (!data) {
+  //     localStorage.setItem("selectedMovie", "");
+  //   }
+  // }, []);
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&query=${title}&language=en-US`);
     const data = await response.json();
     setmovies(data.results);
     console.log(data.results);
     navigateToSearchPg();
-  };
-  const movieInfo = async (movieId) => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=cc82a5951ecd8040e6f972d97c93b79c&language=en-US`
-    );
-    const data = await response.json();
-    setSelectedMovie(data);
-    console.log(data);
-    navigateToMovie();
   };
 
   return (
@@ -64,13 +61,10 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route
-          path="/home"
-          element={<Homepage movies={movies} movieInfo={movieInfo} />}
-        />
+        <Route path="/home" element={<Homepage movies={movies} />} />
         <Route
           path="/movieSearch"
-          element={<SearchResults movies={movies} movieInfo={movieInfo} />}
+          element={<SearchResults movies={movies} />}
         />
         <Route
           path="/movie"
@@ -78,10 +72,9 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login login={navigateToLogin} />} />
-        <Route path="/profile" element={<Profile movieInfo={movieInfo} />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/playlistPage" element={<PlaylistPage />} />
         <Route path="/allFavorites" element={<AllFavorites />} />
-        <Route path="/editPlaylist" element={<EditPlaylist />} />
       </Routes>
     </>
   );

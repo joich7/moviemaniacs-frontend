@@ -5,7 +5,6 @@
   margin: 0;
   border: 0;
   box-sizing: border-box;
-  color: white;
 }
 
 :root {
@@ -227,5 +226,9 @@ h1 {
 }
 
 input {
-  color: black;
+  color: white;
+}
+
+#bdImg{
+  background-image: linear-gradient(red, yellow, green);
 }

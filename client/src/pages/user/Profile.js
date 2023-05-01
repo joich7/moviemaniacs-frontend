@@ -1,20 +1,42 @@
 import React from "react";
 import { useGlobalState } from "../../context/GlobalState";
-import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router-dom";
+
 import request from "../../services/api.request";
-import CustomToggle from "../../components/CustomToggle";
 import { MDBAccordion, MDBAccordionItem } from "mdb-react-ui-kit";
+import MovieCard from "../../components/MovieCard";
+import Accordion from "react-bootstrap/Accordion";
+import EditModal from "../../components/EditModal";
+
 const Profile = ({ movieInfo }) => {
   const [state, dispatch] = useGlobalState();
   const [profile, setProfile] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [playlistText, setPlaylistText] = useState("");
+  const [selectedPlaylist, setselectedPlaylist] = useState("");
+
+  const [show, setShow] = useState(false);
+  const [fullscreen, setFullscreen] = useState(true);
+  function handleShow(breakpoint, playVal) {
+    setFullscreen(breakpoint);
+    setShow(true);
+    setselectedPlaylist(playVal);
+  }
+
+  const navigate = useNavigate();
+  const navigateToMovie = () => {
+    navigate("/movie");
+  };
 
   let loggedIn = state.currentUser != null ? true : false;
   console.log(state.currentUser.user_id);
 
-  async function updatePlaylists() {
+  async function getPlaylists() {
     let options = {
       url: `playlists/`, // just the endpoint
       method: "GET", // sets the method
@@ -34,7 +56,8 @@ const Profile = ({ movieInfo }) => {
     }
 
     getUserInfo();
-    updatePlaylists();
+    getPlaylists();
+
     for (var i of playlists) {
       if (i.list_type === "w") {
         dispatch({ watchlistId: 1 });
@@ -52,7 +75,7 @@ const Profile = ({ movieInfo }) => {
     };
     let resp = await request(options);
     console.log(resp.data);
-    updatePlaylists();
+    getPlaylists();
   }
   async function deletePlaylist(playlistID) {
     let options = {
@@ -62,7 +85,7 @@ const Profile = ({ movieInfo }) => {
     };
     let resp = await request(options);
     console.log(resp.data);
-    updatePlaylists();
+    getPlaylists();
   }
   async function deleteMovie(movieID) {
     let options = {
@@ -72,11 +95,12 @@ const Profile = ({ movieInfo }) => {
     };
     let resp = await request(options);
     console.log(resp.data);
-    updatePlaylists();
+    getPlaylists();
   }
 
   return (
     <div className="container">
+      <Button onClick={() => console.log(state.currentUser)}>log play</Button>
       <h1>{profile.username}'s profile</h1>
       {/* <Button
         className="btn"
@@ -110,28 +134,65 @@ const Profile = ({ movieInfo }) => {
           +Playlist
         </Button>
       </div>
-      <div className="row">
-        <MDBAccordion initialActive={1}>
-          {playlists.map((playlist) => (
-            <>
-              <div className="row">
-                <div className="col-10">
-                  <CustomToggle
-                    playlist={playlist}
-                    movieInfo={movieInfo}
-                    deleteMovie={deleteMovie}
-                  ></CustomToggle>
-                </div>
-                <div className="col-2">
-                  <Button onClick={() => deletePlaylist(playlist.id)}>
-                    Delete Playlist
-                  </Button>
-                </div>
-              </div>
-            </>
-          ))}
-        </MDBAccordion>
-      </div>
+
+      {playlists.map((playlist) => (
+        <section>
+          <div className="d-flex justify-content-between p-3">
+            <h2>{playlist.title}</h2>
+            <Button
+              className="me-2 mb-2"
+              onClick={() => handleShow("sm-down", playlist)}
+            >
+              Edit
+            </Button>
+          </div>
+          <div className="media-scroller snaps-inline ">
+            {playlist.movies.map((movie) => (
+              <MovieCard movie={movie} movieInfo={movieInfo} />
+            ))}
+          </div>
+        </section>
+      ))}
+      {selectedPlaylist !== "" ? (
+        <>
+          <Modal
+            show={show}
+            fullscreen={fullscreen}
+            onHide={() => setShow(false)}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Edit {selectedPlaylist.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {(selectedPlaylist.list_type === "w") |
+              (selectedPlaylist.list_type === "f") ? null : (
+                <Button onClick={() => deletePlaylist(selectedPlaylist.id)}>
+                  Delete Playlist
+                </Button>
+              )}
+              {selectedPlaylist.movies.map((movie) => (
+                <>
+                  <Row>
+                    <Col>
+                      <a
+                        onClick={() => {
+                          localStorage.setItem("selectedMovie", movie.movie_id);
+                          navigateToMovie();
+                        }}
+                      >
+                        {movie.movie_name}
+                      </a>
+                    </Col>
+                    <Col>
+                      <Button onClick={() => deleteMovie(movie.id)}></Button>
+                    </Col>
+                  </Row>
+                </>
+              ))}
+            </Modal.Body>
+          </Modal>
+        </>
+      ) : null}
     </div>
   );
 };

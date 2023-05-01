@@ -36,10 +36,10 @@ export default function Homepage({ movies, movieInfo }) {
   }
 
   useEffect(() => {
+    getData("movie/popular", setPopular);
     getData("trending/movie/day", setTrending);
     getData("movie/now_playing", setNowPlaying);
     //getData("trending/movie/all/week", setTrending);
-    getData("movie/popular", setPopular);
   }, []);
   return (
     <>
@@ -63,18 +63,6 @@ export default function Homepage({ movies, movieInfo }) {
           <p className="page-subtitle">Start Browsing Now!</p>
         </div>
       </header>
-      {/* ------------------------Trending----------------------------- */}
-      <section>
-        <div className="d-flex justify-content-between p-3">
-          <h2>Trending:</h2>
-          <Button>View More</Button>
-        </div>
-        <div className="media-scroller snaps-inline ">
-          {trending.map((movie) => (
-            <MovieCard movie={movie} movieInfo={movieInfo} />
-          ))}
-        </div>
-      </section>
       {/* ------------------------Popular----------------------------- */}
       <section>
         <div className="d-flex justify-content-between p-3">
@@ -83,6 +71,18 @@ export default function Homepage({ movies, movieInfo }) {
         </div>
         <div className="media-scroller snaps-inline ">
           {popular.map((movie) => (
+            <MovieCard movie={movie} movieInfo={movieInfo} />
+          ))}
+        </div>
+      </section>
+      {/* ------------------------Trending----------------------------- */}
+      <section>
+        <div className="d-flex justify-content-between p-3">
+          <h2>Trending:</h2>
+          <Button>View More</Button>
+        </div>
+        <div className="media-scroller snaps-inline ">
+          {trending.map((movie) => (
             <MovieCard movie={movie} movieInfo={movieInfo} />
           ))}
         </div>

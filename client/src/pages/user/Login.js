@@ -3,6 +3,7 @@ import AuthService from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../../context/GlobalState";
 import jwtDecode from "jwt-decode";
+import Row from "react-bootstrap/Row";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -26,47 +27,55 @@ const Login = () => {
   };
 
   return (
-    <div className="row">
-    <div className="col-4 mx-auto">
-      <div className="Auth-form-container">
-        <form className="Auth-form" onSubmit={handleLogin}>
-          <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
-            <div className="text-center">
-              Not registered yet? <span className="link-primary">Sign Up</span>
-            </div>
-            <div className="form-group mt-3">
-              <label htmlFor="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label htmlFor="pass">Password</label>
-              <input
-                type="password"
-                id="pass"
-                name="password"
-                minLength="8"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="d-grid gap-2 mt-3">
-              <button type="submit" value="Sign in" className="btn btn-primary">
-                Submit
-              </button>
-            </div>
-            
+    <>
+      <div className="p-5"></div>
+      <div className="row align-middle">
+        <div className="col-1 mx-auto">
+          <div className="Auth-form-container">
+            <form className="Auth-form" onSubmit={handleLogin}>
+              <div className="Auth-form-content text-white">
+                <h3 className="text-center Auth-form-title">Sign In</h3>
+
+                <Row className="d-flex justify-content-center">
+                  <div className="d-flex justify-content-center form-group mt-3">
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      placeholder="Username"
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </div>
+                </Row>
+                <Row className="d-flex justify-content-center">
+                  <div className="form-group mt-3 d-flex justify-content-center">
+                    <input
+                      type="password"
+                      id="pass"
+                      name="password"
+                      placeholder="Password"
+                      minLength="8"
+                      required
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </Row>
+                <div className=" mt-3 d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    value="Sign in"
+                    className="btn btn-primary"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
-      </div>
-    </div>
+    </>
   );
 };
 
