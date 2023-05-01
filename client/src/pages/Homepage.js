@@ -63,42 +63,44 @@ export default function Homepage({ movies, movieInfo }) {
           <p className="page-subtitle">Start Browsing Now!</p>
         </div>
       </header>
-      {/* ------------------------Popular----------------------------- */}
-      <section>
-        <div className="d-flex justify-content-between p-3">
-          <h2>Popular:</h2>
-          <Button>View More</Button>
-        </div>
-        <div className="media-scroller snaps-inline ">
-          {popular.map((movie) => (
-            <MovieCard movie={movie} movieInfo={movieInfo} />
-          ))}
-        </div>
-      </section>
-      {/* ------------------------Trending----------------------------- */}
-      <section>
-        <div className="d-flex justify-content-between p-3">
-          <h2>Trending:</h2>
-          <Button>View More</Button>
-        </div>
-        <div className="media-scroller snaps-inline ">
-          {trending.map((movie) => (
-            <MovieCard movie={movie} movieInfo={movieInfo} />
-          ))}
-        </div>
-      </section>
-      {/* ------------------------Now Playing----------------------------- */}
-      <section>
-        <div className="d-flex justify-content-between p-3">
-          <h2>Now Playing:</h2>
-          <Button>View More</Button>
-        </div>
-        <div className="media-scroller snaps-inline ">
-          {nowPlaying.map((movie) => (
-            <MovieCard movie={movie} movieInfo={movieInfo} />
-          ))}
-        </div>
-      </section>
+      <div className="container">
+        {/* ------------------------Popular----------------------------- */}
+        <section>
+          <div className="d-flex justify-content-between p-3">
+            <h2>Popular:</h2>
+            <Button>View More</Button>
+          </div>
+          <div className="media-scroller snaps-inline ">
+            {popular.map((movie) => (
+              <MovieCard movie={movie} movieInfo={movieInfo} />
+            ))}
+          </div>
+        </section>
+        {/* ------------------------Trending----------------------------- */}
+        <section>
+          <div className="d-flex justify-content-between p-3">
+            <h2>Trending:</h2>
+            <Button>View More</Button>
+          </div>
+          <div className="media-scroller snaps-inline ">
+            {trending.map((movie) => (
+              <MovieCard movie={movie} movieInfo={movieInfo} />
+            ))}
+          </div>
+        </section>
+        {/* ------------------------Now Playing----------------------------- */}
+        <section>
+          <div className="d-flex justify-content-between p-3">
+            <h2>Now Playing:</h2>
+            <Button>View More</Button>
+          </div>
+          <div className="media-scroller snaps-inline ">
+            {nowPlaying.map((movie) => (
+              <MovieCard movie={movie} movieInfo={movieInfo} />
+            ))}
+          </div>
+        </section>
+      </div>
     </>
   );
 }

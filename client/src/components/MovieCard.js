@@ -7,19 +7,25 @@ export default function MovieCard({ movie }) {
   const navigateToMovie = () => {
     localStorage.setItem(
       "selectedMovie",
-      document.URL.includes("profile") ? movie.movie_id : movie.id
+      document.URL.includes("profile") | document.URL.includes("allFavorites")
+        ? movie.movie_id
+        : movie.id
     );
     navigate("/movie");
   };
 
   const Poster = `https://image.tmdb.org/t/p/w500/${
-    document.URL.includes("profile") ? movie.poster : movie.poster_path
+    document.URL.includes("profile") | document.URL.includes("allFavorites")
+      ? movie.poster
+      : movie.poster_path
   }`;
 
   return (
     <div
       className={
-        document.URL.includes("profile") | document.URL.includes("home")
+        document.URL.includes("profile") |
+        document.URL.includes("home") |
+        document.URL.includes("allFavorites")
           ? null
           : "movie col-3"
       }
@@ -42,7 +48,8 @@ export default function MovieCard({ movie }) {
         />
       </div>
       {document.URL.includes("profile") |
-      document.URL.includes("home") ? null : (
+      document.URL.includes("home") |
+      document.URL.includes("allFavorites") ? null : (
         <div>
           <span>{movie.Type}</span>
 

@@ -8,12 +8,11 @@ import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 
 import request from "../../services/api.request";
-import { MDBAccordion, MDBAccordionItem } from "mdb-react-ui-kit";
 import MovieCard from "../../components/MovieCard";
 import Accordion from "react-bootstrap/Accordion";
 import EditModal from "../../components/EditModal";
 
-const Profile = ({ movieInfo }) => {
+const Profile = () => {
   const [state, dispatch] = useGlobalState();
   const [profile, setProfile] = useState("");
   const [playlists, setPlaylists] = useState([]);
@@ -146,11 +145,17 @@ const Profile = ({ movieInfo }) => {
               Edit
             </Button>
           </div>
-          <div className="media-scroller snaps-inline ">
-            {playlist.movies.map((movie) => (
-              <MovieCard movie={movie} movieInfo={movieInfo} />
-            ))}
-          </div>
+          {playlists.length > 0 ? (
+            <div className="media-scroller snaps-inline ">
+              {playlist.movies.map((movie) => (
+                <MovieCard movie={movie} />
+              ))}
+            </div>
+          ) : (
+            <div>
+              <h2>No Movies in Playlist</h2>
+            </div>
+          )}
         </section>
       ))}
       {selectedPlaylist !== "" ? (

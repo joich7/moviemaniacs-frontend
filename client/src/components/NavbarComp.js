@@ -45,16 +45,21 @@ export default function NavbarComp({ searchMovies, navigateToHome }) {
             </Nav.Link>
             <Nav.Link>
               {" "}
-              <Link className="text-decoration-none text-white" to="/login">
-                Login
+              <Link
+                className="text-decoration-none text-white"
+                to="/allFavorites"
+              >
+                Community Favorites
               </Link>
             </Nav.Link>
-            <Nav.Link>
-              {" "}
-              <Link className="text-decoration-none text-white" to="/contact">
-                Contact Us
-              </Link>
-            </Nav.Link>
+            {loggedIn ? null : (
+              <Nav.Link>
+                {" "}
+                <Link className="text-decoration-none text-white" to="/login">
+                  Login
+                </Link>
+              </Nav.Link>
+            )}
           </Nav>
 
           <Nav className="gap-2">
