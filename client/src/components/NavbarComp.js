@@ -55,24 +55,19 @@ export default function NavbarComp({ searchMovies, navigateToHome }) {
                     Login
                   </Link>
                 </Nav.Link>{" "}
+                <Nav.Link>
+                  <Link
+                    className="text-decoration-none text-white"
+                    to="/register"
+                  >
+                    Sign up
+                  </Link>
+                </Nav.Link>
               </>
             )}
           </Nav>
 
-          <Nav className="gap-2">
-            {" "}
-            {!loggedIn ? (
-              <>
-                {" "}
-                <Nav.Link>
-                  <Link to="/login">Login</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/register">Sign up</Link>
-                </Nav.Link>
-              </>
-            ) : null}
-          </Nav>
+          <Nav className="gap-2"> {!loggedIn ? <> </> : null}</Nav>
           <div className="p-2"></div>
           <Form className="d-flex">
             <Form.Control
