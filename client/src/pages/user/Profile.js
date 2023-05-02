@@ -9,10 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 import request from "../../services/api.request";
 import MovieCard from "../../components/MovieCard";
-import Accordion from "react-bootstrap/Accordion";
-import EditModal from "../../components/EditModal";
+import AuthService from "../../services/auth.service";
 
-const Profile = () => {
+const Profile = ({ navigateToHome }) => {
   const [state, dispatch] = useGlobalState();
   const [profile, setProfile] = useState("");
   const [playlists, setPlaylists] = useState([]);
@@ -21,6 +20,16 @@ const Profile = () => {
 
   const [show, setShow] = useState(false);
   const [fullscreen, setFullscreen] = useState(true);
+  function logout() {
+    navigateToHome();
+    AuthService.logout();
+    dispatch({
+      currentUserToken: null,
+      currentUser: null,
+      watchlistId: null,
+      favoritesId: null,
+    });
+  }
   function handleShow(breakpoint, playVal) {
     setFullscreen(breakpoint);
     setShow(true);
@@ -86,6 +95,11 @@ const Profile = () => {
     console.log(resp.data);
     getPlaylists();
   }
+
+  // function update(){
+  //   deleteMovie
+  // }
+
   async function deleteMovie(movieID) {
     let options = {
       url: `movies/${movieID}`, // just the endpoint
@@ -99,7 +113,7 @@ const Profile = () => {
 
   return (
     <div className="container">
-      <Button onClick={() => console.log(state.currentUser)}>log play</Button>
+      <Button onClick={() => logout()}>Logout</Button>
       <h1>{profile.username}'s profile</h1>
       {/* <Button
         className="btn"
@@ -175,25 +189,36 @@ const Profile = () => {
                   Delete Playlist
                 </Button>
               )}
-              {selectedPlaylist.movies.map((movie) => (
-                <>
-                  <Row>
-                    <Col>
-                      <a
-                        onClick={() => {
-                          localStorage.setItem("selectedMovie", movie.movie_id);
-                          navigateToMovie();
-                        }}
-                      >
-                        {movie.movie_name}
-                      </a>
-                    </Col>
-                    <Col>
-                      <Button onClick={() => deleteMovie(movie.id)}></Button>
-                    </Col>
-                  </Row>
-                </>
-              ))}
+              <ol>
+                {selectedPlaylist.movies.map((movie) => (
+                  <>
+                    <li>
+                      <div className="d-flex justify-content-between mb-4">
+                        <a
+                          onClick={() => {
+                            localStorage.setItem(
+                              "selectedMovie",
+                              movie.movie_id
+                            );
+                            navigateToMovie();
+                          }}
+                        >
+                          {movie.movie_name}
+                        </a>
+                        <Button
+                          style={{ height: "40px", width: "40px" }}
+                          className="btn-danger"
+                          onClick={() => {
+                            deleteMovie(movie.id);
+                          }}
+                        >
+                          x
+                        </Button>
+                      </div>
+                    </li>
+                  </>
+                ))}
+              </ol>
             </Modal.Body>
           </Modal>
         </>
