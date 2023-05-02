@@ -6,11 +6,14 @@ import Button from "react-bootstrap/Button";
 import "./hp.css";
 import axios from "axios";
 import hpbg from "../components/hpbg.png";
+import Link from "react-router-dom";
 
-export default function Homepage({ movies, movieInfo }) {
-  const [trending, setTrending] = useState([]);
+export default function Homepage({ movies, movieInfo, login }) {
   const [popular, setPopular] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [trending, setTrending] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
 
   const backdrop =
     "https://image.tmdb.org/t/p/w500/7lmBufEG7P7Y1HClYK3gCxYrkgS.jpg";
@@ -36,8 +39,11 @@ export default function Homepage({ movies, movieInfo }) {
 
   useEffect(() => {
     getData("movie/popular", setPopular);
+    getData("movie/top_rated", setTopRated);
     getData("trending/movie/day", setTrending);
     getData("movie/now_playing", setNowPlaying);
+    getData("movie/upcoming", setUpcoming);
+
     //getData("trending/movie/all/week", setTrending);
   }, []);
   return (
@@ -70,6 +76,12 @@ export default function Homepage({ movies, movieInfo }) {
         <div className="container flow">
           <h1 className="page-title">Welcome To Movie Maniacs!</h1>
           <p className="page-subtitle">Start Browsing Now!</p>
+          <p className="page-subtitle">
+            Make an account{" "}
+            <span onClick={login} className="text-primary">
+              Here
+            </span>
+          </p>
         </div>
       </header>
 
@@ -85,6 +97,18 @@ export default function Homepage({ movies, movieInfo }) {
           ))}
         </div>
       </section>
+      {/* ------------------------Latest----------------------------- */}
+      <section>
+        <div className="d-flex justify-content-between p-3">
+          <h2>Top Rated:</h2>
+          {/* <Button>View More</Button> */}
+        </div>
+        <div className="media-scroller snaps-inline ">
+          {topRated.map((movie) => (
+            <MovieCard movie={movie} movieInfo={movieInfo} />
+          ))}
+        </div>
+      </section>
       {/* ------------------------Trending----------------------------- */}
       <section>
         <div className="d-flex justify-content-between p-3">
@@ -93,6 +117,18 @@ export default function Homepage({ movies, movieInfo }) {
         </div>
         <div className="media-scroller snaps-inline ">
           {trending.map((movie) => (
+            <MovieCard movie={movie} movieInfo={movieInfo} />
+          ))}
+        </div>
+      </section>
+      {/* ------------------------Upcoming----------------------------- */}
+      <section>
+        <div className="d-flex justify-content-between p-3">
+          <h2>Upcoming:</h2>
+          {/* <Button>View More</Button> */}
+        </div>
+        <div className="media-scroller snaps-inline ">
+          {upcoming.map((movie) => (
             <MovieCard movie={movie} movieInfo={movieInfo} />
           ))}
         </div>

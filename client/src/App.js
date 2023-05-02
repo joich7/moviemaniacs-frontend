@@ -57,11 +57,14 @@ function App() {
 
   return (
     <>
-      <NavbarComp searchMovies={searchMovies} />
+      <NavbarComp searchMovies={searchMovies} navigateToHome={navigateToHome} />
 
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Homepage movies={movies} />} />
+        <Route
+          path="/home"
+          element={<Homepage movies={movies} login={navigateToLogin} />}
+        />
         <Route
           path="/movieSearch"
           element={<SearchResults movies={movies} />}

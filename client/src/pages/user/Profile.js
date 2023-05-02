@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import request from "../../services/api.request";
 import MovieCard from "../../components/MovieCard";
 import AuthService from "../../services/auth.service";
+import ModalBody from "../../components/ModalBody";
 
 const Profile = ({ navigateToHome }) => {
   const [state, dispatch] = useGlobalState();
@@ -96,10 +97,6 @@ const Profile = ({ navigateToHome }) => {
     getPlaylists();
   }
 
-  // function update(){
-  //   deleteMovie
-  // }
-
   async function deleteMovie(movieID) {
     let options = {
       url: `movies/${movieID}`, // just the endpoint
@@ -112,40 +109,33 @@ const Profile = ({ navigateToHome }) => {
   }
 
   return (
-    <div className="container">
-      <Button onClick={() => logout()}>Logout</Button>
-      <h1>{profile.username}'s profile</h1>
-      {/* <Button
-        className="btn"
-        onClick={() => {
-          console.log("loggedIn?" + loggedIn);
-          console.log("state:");
-          console.log(state);
-          console.log("Profile data:");
-          console.log(profile);
-          console.log("playlists");
-          console.log(playlists);
-          console.log(state.favoritesId);
-        }}
-      >
-        Profile data
-      </Button> */}
-      <div className="d-flex justify-content-center p-2 m-4">
-        <input
-          type="text"
-          id="playlistTxt"
-          name="playlisTxt"
-          onChange={(e) => setPlaylistText(e.target.value)}
-          required
-        />
-        <Button
-          className="btn"
-          onClick={() => {
-            createPlaylist();
-          }}
-        >
-          +Playlist
-        </Button>
+    <>
+      <div className="container">
+        <Row>
+          <Col d-flex className="justify-content-center" xs={12}>
+            <h1>{profile.username}'s profile</h1>
+          </Col>
+          <Col xs={3}>
+            <Button onClick={() => logout()}>Logout</Button>
+          </Col>
+        </Row>
+        <div className="d-flex justify-content-center p-2 m-4">
+          <input
+            type="text"
+            id="playlistTxt"
+            name="playlisTxt"
+            onChange={(e) => setPlaylistText(e.target.value)}
+            required
+          />
+          <Button
+            className="btn"
+            onClick={() => {
+              createPlaylist();
+            }}
+          >
+            +Playlist
+          </Button>
+        </div>
       </div>
 
       {playlists.map((playlist) => (
@@ -192,8 +182,7 @@ const Profile = ({ navigateToHome }) => {
               <ol>
                 {selectedPlaylist.movies.map((movie) => (
                   <>
-                    <li>
-                      <div className="d-flex justify-content-between mb-4">
+                    {/* <div className="d-flex justify-content-between mb-4">
                         <a
                           onClick={() => {
                             localStorage.setItem(
@@ -205,17 +194,23 @@ const Profile = ({ navigateToHome }) => {
                         >
                           {movie.movie_name}
                         </a>
+
                         <Button
                           style={{ height: "40px", width: "40px" }}
                           className="btn-danger"
                           onClick={() => {
                             deleteMovie(movie.id);
+
                           }}
                         >
                           x
                         </Button>
-                      </div>
-                    </li>
+                      </div> */}
+                    <ModalBody
+                      deleteMovie={deleteMovie}
+                      currentMovie={movie}
+                      navigateToMovie={navigateToMovie}
+                    />
                   </>
                 ))}
               </ol>
@@ -223,7 +218,7 @@ const Profile = ({ navigateToHome }) => {
           </Modal>
         </>
       ) : null}
-    </div>
+    </>
   );
 };
 

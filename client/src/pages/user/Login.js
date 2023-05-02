@@ -34,7 +34,8 @@ const Login = () => {
           <div className="Auth-form-container">
             <form className="Auth-form" onSubmit={handleLogin}>
               <div className="Auth-form-content text-white">
-                <h3 className="text-center Auth-form-title">Sign In</h3>
+                <Row></Row>
+                <h2 className="text-center">Sign In</h2>
 
                 <Row className="d-flex justify-content-center">
                   <div className="d-flex justify-content-center form-group mt-3">

@@ -22,7 +22,7 @@ export default function NavbarComp({ searchMovies, navigateToHome }) {
       className="p-3"
     >
       <Container>
-        <Navbar.Brand>MOVIE MANIACS</Navbar.Brand>
+        <Navbar.Brand onClick={navigateToHome}>MOVIE MANIACS</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
