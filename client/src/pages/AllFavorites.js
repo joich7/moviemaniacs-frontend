@@ -19,7 +19,7 @@ export default function AllFavorites() {
   }, []);
 
   return (
-    <div className="container">
+    <>
       {" "}
       {playlists.map((playlist) =>
         playlist.movies.length > 0 ? (
@@ -36,6 +36,6 @@ export default function AllFavorites() {
         ) : null
       )}
       {/* <Button onClick={() => console.log(playlists)}></Button> */}
-    </div>
+    </>
   );
 }

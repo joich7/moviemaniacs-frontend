@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import NavbarComp from "./components/NavbarComp";
 //import "./App.css";
@@ -57,7 +57,7 @@ function App() {
 
   return (
     <>
-      <NavbarComp searchMovies={searchMovies} navigateToHome={navigateToHome} />
+      <NavbarComp searchMovies={searchMovies} />
 
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
@@ -72,7 +72,10 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login login={navigateToLogin} />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={<Profile navigateToHome={navigateToHome} />}
+        />
         <Route path="/playlistPage" element={<PlaylistPage />} />
         <Route path="/allFavorites" element={<AllFavorites />} />
       </Routes>

@@ -7,22 +7,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import { useGlobalState } from "../context/GlobalState";
-import AuthService from "../services/auth.service";
 
 export default function NavbarComp({ searchMovies, navigateToHome }) {
   const [state, dispatch] = useGlobalState();
   let loggedIn = state.currentUser != null ? true : false;
   const [searchInput, setsearchInput] = useState("");
-  function logout() {
-    navigateToHome();
-    AuthService.logout();
-    dispatch({
-      currentUserToken: null,
-      currentUser: null,
-      watchlistId: null,
-      favoritesId: null,
-    });
-  }
 
   return (
     <Navbar
@@ -52,50 +41,39 @@ export default function NavbarComp({ searchMovies, navigateToHome }) {
                 Community Favorites
               </Link>
             </Nav.Link>
-            {loggedIn ? null : (
+            {loggedIn ? (
               <Nav.Link>
-                {" "}
-                <Link className="text-decoration-none text-white" to="/login">
-                  Login
+                <Link className="text-decoration-none text-white" to="/profile">
+                  Profile
                 </Link>
               </Nav.Link>
+            ) : (
+              <>
+                <Nav.Link>
+                  {" "}
+                  <Link className="text-decoration-none text-white" to="/login">
+                    Login
+                  </Link>
+                </Nav.Link>{" "}
+              </>
             )}
           </Nav>
 
           <Nav className="gap-2">
-            {loggedIn ? (
+            {" "}
+            {!loggedIn ? (
               <>
                 {" "}
                 <Nav.Link>
-                  <div
-                    className="btn btn-primary text-black"
-                    onClick={() => logout()}
-                  >
-                    Logout
-                  </div>
+                  <Link to="/login">Login</Link>
                 </Nav.Link>
                 <Nav.Link>
-                  <Link className="btn btn-light text-black" to="/profile">
-                    Profile
-                  </Link>
+                  <Link to="/register">Sign up</Link>
                 </Nav.Link>
               </>
-            ) : (
-              <>
-                {" "}
-                <Nav.Link>
-                  <Link className="btn btn-primary text-black" to="/login">
-                    Login
-                  </Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link className="btn btn-light text-black" to="/register">
-                    Sign up
-                  </Link>
-                </Nav.Link>
-              </>
-            )}
+            ) : null}
           </Nav>
+          <div className="p-2"></div>
           <Form className="d-flex">
             <Form.Control
               type="search"

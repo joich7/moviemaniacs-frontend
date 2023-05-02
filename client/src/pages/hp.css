@@ -64,9 +64,10 @@
 .page-header {
   padding-block: var(--size-9);
   margin-block-end: var(--size-9);
-  background: var(--gradient-16);
   color: var(--gray-0);
+  background-size: auto;
   box-shadow: var(--shadow-2);
+  background-repeat: no-repeat;
 }
 
 .page-title {
